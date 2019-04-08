@@ -1,5 +1,10 @@
 package Object;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
+import MainGame.Window;
+
 public class Block {
 	
 	
@@ -21,6 +26,10 @@ public class Block {
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	public void render(Graphics g) {
+		g.setColor(Color.ORANGE);
+		g.fillRect(x*Window.size+x*Window.distance, y*Window.size+y*Window.distance+10, Window.size, Window.size);
 	}
 	
 }
