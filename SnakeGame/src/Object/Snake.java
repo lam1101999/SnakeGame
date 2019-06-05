@@ -10,11 +10,21 @@ import MainGame.Window;
 public class Snake {
 	
 	
-	private ArrayList<Block> snake;
+	private ArrayList<Block> chain;
 	private Block head;
 	private Random rd = new Random();	
 	private int status;
+	private long time;
 	
+	
+	public ArrayList<Block> getChain() {
+		return chain;
+	}
+
+	public void setChain(ArrayList<Block> snake) {
+		this.chain = chain;
+	}
+
 	public Block getHead() {
 		return head;
 	}
@@ -37,23 +47,27 @@ public class Snake {
 	static public int goLeft = -2;
 
 	public Snake() {
-		snake = new ArrayList<Block>();
-//		head = new Block(rd.nextInt(20),rd.nextInt(15));
+		chain = new ArrayList<Block>();
 		head = new Block(5,6);
 		Block head1 = new Block(5,7);
 		Block head2 = new Block(5,8);
 		
-		snake.add(head);
-		snake.add(head1);
-		snake.add(head2);
+		chain.add(head);
+		chain.add(head1);
+		chain.add(head2);
 		status = goUp;
+		
+		time = System.currentTimeMillis();
+		
+		
 	}
 	
 	public void tick() {
-		
-		for(int i = (snake.size() - 1); i > 0; i--) {
-			snake.get(i).setX(snake.get(i-1).getX());
-			snake.get(i).setY(snake.get(i-1).getY());
+		if (System.currentTimeMillis() - time >= 200) {
+		time = System.currentTimeMillis();
+		for(int i = (chain.size() - 1); i > 0; i--) {
+			chain.get(i).setX(chain.get(i-1).getX());
+			chain.get(i).setY(chain.get(i-1).getY());
 		}
 		
 		
@@ -66,11 +80,12 @@ public class Snake {
 		if (status == goLeft)
 		head.setX(head.getX()-1);
 		
+		}
 
 	}
 	
 	public void render(Graphics g) {
-		for(Block block : snake)
+		for(Block block : chain)
 			block.render(g);
 		
 	}
